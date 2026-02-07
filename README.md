@@ -31,8 +31,10 @@ Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't r
 ## Screenshots
 ### Statistics
 <img width="1755" height="840" alt="image" src="https://github.com/user-attachments/assets/d1f24fb5-f053-40b3-890c-2300947309d1" />
+
 ### Overview
 <img width="1755" height="840" alt="image" src="https://github.com/user-attachments/assets/b0254f29-165b-4502-88b6-d1ac8317cc0d" />
+
 ### Docker
 <img width="1755" height="840" alt="image" src="https://github.com/user-attachments/assets/2d158398-7487-45aa-868c-0d8cafa53300" />
 
