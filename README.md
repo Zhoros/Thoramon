@@ -1,8 +1,7 @@
 # Thoramon
-Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't require any installation**</ins> on target machine. Capable of tracking system resource metrics with docker integration with more features to come. 
+Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't require any installation**</ins> on target machine. Capable of tracking system resource metrics with Docker integration with more features in the future.
 
 <ins>**Please star this repo if you like it, thank you!**</ins>
-
 
 ## Why it's better than other alternatives
 - Doesn't require any installation on the machine you want to monitor
@@ -11,6 +10,9 @@ Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't r
 - Very little backend external dependencies, only expressjs and better-sqlite3
 - easy to install, only `docker compose up -d`
 - Very easy to connect to remote machine, no complicated setup at all
+
+## How it works
+The app establishes connections to remote machines via ssh, then get the system metrics by reading Linux VFS e.g `/proc` or via utilities e.g `top`. This data is then visualized in a web dashboard and persisted in a database for historical trend analysis.
 
 ## Install without docker
 1. `git clone` this repo
