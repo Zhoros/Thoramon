@@ -1,0 +1,28 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently --kill-others \"node --watch main.js\" \"npm --prefix ./svelte start\"",
+    "build": "npx esbuild main.ts --bundle --platform=node --outfile=./main.js --minify --external:better-sqlite3",
+    "start": "node main.js"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.1",
+    "@types/node": "^22.17.0",
+    "concurrently": "^9.1.2",
+    "tsx": "^4.19.4"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "chart.js": "^4.5.1",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "compression": "^1.8.1",
+    "esbuild": "^0.25.5",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "memorystore": "^1.6.7",
+    "multer": "^2.0.2",
+    "ssh2": "^1.17.0"
+  }
+}

@@ -1,0 +1,12 @@
+services:
+  demo:
+    restart: unless-stopped
+    build: .
+    networks:
+      - global
+    volumes:
+      - ./data:/app/data
+
+networks:
+  global:
+    external: true
