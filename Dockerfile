@@ -16,6 +16,4 @@ RUN npm run build
 
 WORKDIR /app
 
-RUN npm run build
-
 CMD ["npm", "run", "start"]

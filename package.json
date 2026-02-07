@@ -2,7 +2,6 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently --kill-others \"node --watch main.js\" \"npm --prefix ./svelte start\"",
-    "build": "npx esbuild main.ts --bundle --platform=node --outfile=./main.js --minify --external:better-sqlite3",
     "start": "node main.js"
   },
   "devDependencies": {
