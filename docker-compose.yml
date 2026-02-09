@@ -1,5 +1,5 @@
 services:
-  demo:
+  thoramon:
     restart: unless-stopped
     build: .
     networks:
