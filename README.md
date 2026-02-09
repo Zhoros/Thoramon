@@ -1,8 +1,6 @@
 # Thoramon
 Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't require any installation**</ins> on target machine. Capable of tracking system resource metrics with Docker integration with more features to come.
 
-<ins>**Please star this repo if you like it, thank you!**</ins>
-
 ## Why it's better than other alternatives
 - Doesn't require any installation on the machine you want to monitor
 - Responsive UI on mobile
