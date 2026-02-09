@@ -6,6 +6,7 @@ Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't r
 ## Why it's better than other alternatives
 - Doesn't require any installation on the machine you want to monitor
 - Responsive UI on mobile
+- Start, stop or restart docker containers from the web app directly
 - Very easy to audit. Files are organized tidily according to each functionalities with straightforward code
 - Very little backend external dependencies, only expressjs and better-sqlite3
 - easy to install, only `docker compose up -d`
