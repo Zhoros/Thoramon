@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte'
 	import { post, getCurrentDateTime, formatDateTime } from './helper.js'
 	import Sidebar from './sidebar.svelte'
-	import CustomDate from './CustomDate.svelte'
+	import CustomDate from './customDate.svelte'
 	import { Chart } from 'chart.js/auto'
 
 	const id = new URLSearchParams(window.location.search).get('id')

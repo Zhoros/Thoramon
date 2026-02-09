@@ -13,7 +13,7 @@
     "tsx": "^4.19.4"
   },
   "dependencies": {
-    "better-sqlite3": "^11.10.0",
+    "better-sqlite3": "^12.6.0",
     "chart.js": "^4.5.1",
     "chartjs-plugin-datalabels": "^2.2.0",
     "compression": "^1.8.1",
