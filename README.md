@@ -11,7 +11,7 @@ Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't r
 - Very easy to connect to remote machine, no complicated setup at all
 
 ## How it works
-The app establishes connections to remote machines via SSH that reads system metrics by accessing Linux VFS e.g `/proc` or via utilities e.g `top`. This data is then visualized in a web dashboard and persisted in a database for historical trend analysis.
+The app establishes connections to remote machines via SSH that reads system metrics by accessing Linux VFS e.g `/proc` or via utilities e.g `top`. This data is then visualized in a web dashboard and persisted in a database for historical trend analysis. Since it only uses SSH, it doesn't require any installation on the machine you want to monitor.
 
 ## Install without docker
 1. `git clone` this repo
