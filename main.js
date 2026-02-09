@@ -62,6 +62,7 @@ app.post('/editHost', (req, res) => {
 	let ins = instances.get(body.id);
 	if (ins) {
 			if (ins.interval) clearInterval(ins.interval)
+			if (ins.cleanInterval) clearInterval(ins.cleanInterval)
 			if (ins.db) ins.db.close()
 			if (ins.conn) {
 					ins.conn.removeAllListeners('close')
@@ -243,7 +244,7 @@ function connectToHost(h) {
 			idb.exec(`CREATE TABLE IF NOT EXISTS network (time INTEGER NOT NULL, data TEXT NOT NULL)`)
 			idb.exec(`CREATE TABLE IF NOT EXISTS disk (time INTEGER NOT NULL, data TEXT NOT NULL)`)
 			const conn = new Client();
-			instances.set(h.id, {db: idb, conn, interval: null})
+			instances.set(h.id, {db: idb, conn, interval: null, cleanInterval: null})
 			let stat = stats.get(h.id)
 
 			conn.on('ready', () => {
@@ -253,12 +254,19 @@ function connectToHost(h) {
 				monitorDisk(conn, stat)
 				monitorDocker(conn, stat, h.id)
 				//store these data for statistics
-				let intervalID = setInterval(()=>{
+				let intervalID = setInterval(() => {
 					idb.prepare(`INSERT INTO cpu VALUES(?, ?)`).run(Date.now(), JSON.stringify({userTime: stat.cpu.userTime, systemTime: stat.cpu.systemTime}))
 					idb.prepare(`INSERT INTO memory VALUES(?, ?)`).run(Date.now(), JSON.stringify({used: stat.memory.used, free: stat.memory.free, swapUsed: stat.memory.swapUsed, swapFree: stat.memory.swapFree}))
 					idb.prepare(`INSERT INTO network VALUES(?, ?)`).run(Date.now(), JSON.stringify({uploadSpeed: stat.network.uploadSpeed, downloadSpeed: stat.network.downloadSpeed}))
 					idb.prepare(`INSERT INTO disk VALUES(?, ?)`).run(Date.now(), JSON.stringify({readSpeed: stat.disk.readSpeed, writeSpeed: stat.disk.writeSpeed}))
 				}, 10000)
+				let cleanInterval = setInterval(() => {
+					let threeMonthsAgo = Date.time() - (90 * 24 * 60 * 60 * 1000)
+					idb.prepare(`DELETE FROM cpu WHERE time < ?`).run(threeMonthsAgo)
+					idb.prepare(`DELETE FROM memory WHERE time < ?`).run(threeMonthsAgo)
+					idb.prepare(`DELETE FROM network WHERE time < ?`).run(threeMonthsAgo)
+					idb.prepare(`DELETE FROM disk WHERE time < ?`).run(threeMonthsAgo)
+				}, 1000 * 60 * 60)
 				instances.get(h.id).interval = intervalID
 			}).on('error', (err) => {
 				console.log(err)
