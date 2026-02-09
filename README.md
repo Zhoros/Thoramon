@@ -1,10 +1,11 @@
 # Thoramon
-Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't require any installation**</ins> on target machine. Capable of tracking system resource metrics with Docker integration with more features to come.
+Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't require any installation**</ins> on target machine. Capable of tracking system resource metrics with Docker integration with more features to come. It is recommended to use authentication provided by your reverse proxy or 3rd party auth to prevent unauthorized access
 
 ## Why it's better than other alternatives
 - Doesn't require any installation on the machine you want to monitor
 - Responsive UI on mobile
 - Start, stop or restart docker containers from the web app directly
+- Support public key based authentication
 - Very easy to audit. Files are organized tidily according to each functionalities with straightforward code
 - Very little backend external dependencies, only expressjs and better-sqlite3
 - easy to install, only `docker compose up -d`
