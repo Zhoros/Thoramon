@@ -1,6 +1,3 @@
-# I'm open to work
-see my github profile for my email
-
 # Thoramon
 Thoramon is a sophisthicated Linux server monitoriong tool that <ins>**doesn't require any installation**</ins> on target machine. Capable of tracking system resource metrics with Docker integration with more features to come. It is recommended to use authentication provided by your reverse proxy or 3rd party auth to prevent unauthorized access
 
