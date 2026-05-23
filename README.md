@@ -32,13 +32,14 @@ The app establishes connections to remote machines via SSH that reads system met
 
 ## Screenshots
 ### Statistics
-<img width="1755" height="840" alt="image" src="https://github.com/user-attachments/assets/d1f24fb5-f053-40b3-890c-2300947309d1" />
+<img width="1763" height="844" alt="image" src="https://github.com/user-attachments/assets/be9ce2c3-a180-479a-9bbb-d17e376aa6c5" />
 
 ### Overview
-<img width="1755" height="840" alt="image" src="https://github.com/user-attachments/assets/b0254f29-165b-4502-88b6-d1ac8317cc0d" />
+<img width="1763" height="844" alt="image" src="https://github.com/user-attachments/assets/317afd7e-252f-4e43-8f5a-0443ee6c0b07" />
 
 ### Docker
-<img width="1755" height="840" alt="image" src="https://github.com/user-attachments/assets/2d158398-7487-45aa-868c-0d8cafa53300" />
+<img width="1763" height="844" alt="image" src="https://github.com/user-attachments/assets/68588e8b-060d-43a2-8cf2-16dac7393285" />
+
 
 
 
