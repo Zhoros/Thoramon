@@ -13,6 +13,8 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "ssh2": "^1.17.0"
+    "@tailwindcss/vite": "^4.3.0",
+    "ssh2": "^1.17.0",
+    "tailwindcss": "^4.3.0"
   }
 }

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import fs from 'fs'
 import path from 'path'
+import tailwindcss from '@tailwindcss/vite';
 
 function getHtmlInputs(dir) {
   const entries = {}
@@ -27,7 +28,7 @@ export default defineConfig({
 			interval: 250,
 		}
 	},
-	plugins: [svelte()],
+	plugins: [svelte(), tailwindcss()],
 	build: {
 
 		rollupOptions: {
