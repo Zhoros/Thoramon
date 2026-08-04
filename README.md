@@ -40,6 +40,5 @@ The app establishes connections to remote machines via SSH that reads system met
 ### Docker
 <img width="1763" height="844" alt="image" src="https://github.com/user-attachments/assets/68588e8b-060d-43a2-8cf2-16dac7393285" />
 
-
-
-
+### TODO
+All system metrics should be obtained via VFS, but for now it still relies on tools like `top`
