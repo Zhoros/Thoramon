@@ -178,7 +178,7 @@
     <div class="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zinc-900 pb-4">
       <div>
         <h1 class="text-xl font-semibold tracking-tight text-zinc-50">Metric Analytics</h1>
-        <p class="text-xs text-zinc-400 mt-1">Review deep historical runtime data configurations</p>
+        <p class="text-xs text-zinc-400 mt-1">View historical metrics</p>
       </div>
 
       <!-- Action Controller Inputs Bar -->

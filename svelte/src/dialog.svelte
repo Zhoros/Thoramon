@@ -23,12 +23,10 @@
 
 {#if show}
 <div class="backdrop">
-	<!-- Fixed Container: Removed border:none and background:transparent from inline styles -->
 	<div 
 		class="border border-zinc-800 rounded-xl bg-zinc-900 text-zinc-200 shadow-2xl flex flex-col overflow-hidden"  
 		style="width: {width}; max-width: calc(100% - 30px);"
 	>
-		<!-- Header: Cleaned up alignment and layout -->
 		<div class="flex justify-between items-center px-4 py-3 border-b border-zinc-800 bg-zinc-900/50">
 			<span class="text-sm font-medium text-zinc-100">{title}</span>
 			<button 
@@ -39,7 +37,6 @@
 			</button>
 		</div>
 		
-		<!-- Body Content Slot -->
 		<div class="p-4 max-h-[85vh] overflow-y-auto">
 			<slot/>
 		</div>

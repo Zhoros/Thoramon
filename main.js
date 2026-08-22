@@ -9,12 +9,13 @@ import { monitorNetwork } from './network.js'
 import { monitorDisk } from './disk.js'
 import { monitorDocker } from './docker.js'
 
+//38.47.176.251
 if (!fs.existsSync('./data')) {
 	fs.mkdirSync('./data')
 }
 
 const db = new Database('./data/data.db');
-db.exec(`CREATE TABLE IF NOT EXISTS hosts (id TEXT NOT NULL, label TEXT NOT NULL, host TEXT NOT NULL, user TEXT NOT NULL, password TEXT NOT NULL, privkey TEXT NOT NULL)`)
+db.exec(`CREATE TABLE IF NOT EXISTS hosts (id TEXT NOT NULL, label TEXT NOT NULL, host TEXT NOT NULL, user TEXT NOT NULL, password TEXT NOT NULL, privkey TEXT NOT NULL, dataExpiry INTEGER NOT NULL, monitorFrequency INTEGER NOT NULL)`)
 
 const app = express()
 app.use(express.json())
@@ -27,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.post('/addHost', (req, res) => {
 	const body = req.body
-	db.prepare(`INSERT INTO hosts VALUES(?, ?, ?, ?, ?, ?)`).run([body.id, body.label, body.host, body.user, body.password, body.privkey])
+	db.prepare(`INSERT INTO hosts VALUES(?, ?, ?, ?, ?, ?, ?, ?)`).run([body.id, body.label, body.host, body.user, body.password, body.privkey, 0, 10000])
 	const h = {
 		id: body.id,
 		label: body.label,
@@ -39,6 +40,21 @@ app.post('/addHost', (req, res) => {
 	connectToHost(h)
 	res.sendStatus(200)
 })
+
+function destroyInstance(id) {
+
+	let ins = instances.get(id)
+	if (ins) {
+			if (ins.interval) clearInterval(ins.interval)
+			if (ins.cleanInterval) clearInterval(ins.cleanInterval)
+			if (ins.db) ins.db.close()
+			if (ins.conn) {
+					ins.conn.removeAllListeners('close')
+					ins.conn.destroy()
+			}
+	}
+
+}
 
 app.post('/editHost', (req, res) => {
 	const body = req.body
@@ -59,16 +75,7 @@ app.post('/editHost', (req, res) => {
 		id: body.id
 	});
 
-	let ins = instances.get(body.id);
-	if (ins) {
-			if (ins.interval) clearInterval(ins.interval)
-			if (ins.cleanInterval) clearInterval(ins.cleanInterval)
-			if (ins.db) ins.db.close()
-			if (ins.conn) {
-					ins.conn.removeAllListeners('close')
-					ins.conn.destroy()
-			}
-	}
+	destroyInstance(body.id)
 	connectToHost(body);
 	res.sendStatus(200)
 })
@@ -144,6 +151,19 @@ app.post('/startDocker', (req, res) => {
 	}
 })
 
+app.post('/options', (req, res) => {
+	let body = req.body
+	res.json(db.prepare(`SELECT dataExpiry, monitorFrequency FROM hosts WHERE id = ?`).get(body.id))
+})
+
+app.post('/updateOptions', (req, res) => {
+	let body = req.body
+	res.json(db.prepare(`UPDATE hosts SET dataExpiry = ?, monitorFrequency = ? WHERE id = ?`).run(body.dataExpiry, body.monitorFrequency, body.id))
+	destroyInstance(body.id)
+	let host = db.prepare(`SELECT * FROM hosts WHERE id = ?`).get(body.id)
+	connectToHost(host);
+})
+
 let instances = new Map()
 app.post('/instanceData', (req, res) => {
 	let body = req.body
@@ -166,7 +186,7 @@ app.post('/instanceData', (req, res) => {
 						 NTILE(60) OVER (ORDER BY time ASC) as bucket
 			FROM memory 
 			WHERE time > ? AND time < ?
-			) 
+			)
 		GROUP BY bucket
 		`).all(body.timeFrom, body.timeTo)})
 	}
@@ -259,14 +279,17 @@ function connectToHost(h) {
 					idb.prepare(`INSERT INTO memory VALUES(?, ?)`).run(Date.now(), JSON.stringify({used: stat.memory.used, free: stat.memory.free, swapUsed: stat.memory.swapUsed, swapFree: stat.memory.swapFree}))
 					idb.prepare(`INSERT INTO network VALUES(?, ?)`).run(Date.now(), JSON.stringify({uploadSpeed: stat.network.uploadSpeed, downloadSpeed: stat.network.downloadSpeed}))
 					idb.prepare(`INSERT INTO disk VALUES(?, ?)`).run(Date.now(), JSON.stringify({readSpeed: stat.disk.readSpeed, writeSpeed: stat.disk.writeSpeed}))
-				}, 10000)
-				let cleanInterval = setInterval(() => {
-					let threeMonthsAgo = Date.time() - (90 * 24 * 60 * 60 * 1000)
-					idb.prepare(`DELETE FROM cpu WHERE time < ?`).run(threeMonthsAgo)
-					idb.prepare(`DELETE FROM memory WHERE time < ?`).run(threeMonthsAgo)
-					idb.prepare(`DELETE FROM network WHERE time < ?`).run(threeMonthsAgo)
-					idb.prepare(`DELETE FROM disk WHERE time < ?`).run(threeMonthsAgo)
-				}, 1000 * 60 * 60)
+				}, h.monitorFrequency)
+				if (h.dataExpiry > 0) {
+					let cleanInterval = setInterval(() => {
+						let threeMonthsAgo = Date.time() - (90 * 24 * 60 * 60 * 1000)
+						idb.prepare(`DELETE FROM cpu WHERE time < ?`).run(threeMonthsAgo)
+						idb.prepare(`DELETE FROM memory WHERE time < ?`).run(threeMonthsAgo)
+						idb.prepare(`DELETE FROM network WHERE time < ?`).run(threeMonthsAgo)
+						idb.prepare(`DELETE FROM disk WHERE time < ?`).run(threeMonthsAgo)
+					}, h.dataExpiry)
+					instances.get(h.id).cleanInterval = cleanInterval
+				}
 				instances.get(h.id).interval = intervalID
 			}).on('error', (err) => {
 				console.log(err)

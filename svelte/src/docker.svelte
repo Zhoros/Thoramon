@@ -44,7 +44,7 @@
   <div class="flex-1 h-full overflow-y-auto flex flex-col gap-4 pr-2 custom-scrollbar">
     
     <!-- Top Mobile Header Trigger Row -->
-    <div class="flex items-center mb-1 border-b border-zinc-900 pb-3 md:hidden">
+    <div class="flex items-center mb-1 border-b border-zinc-900 pb-3">
       <button 
         popovertarget="sidebar" 
         class="text-zinc-400 hover:text-zinc-100 text-xl p-1 transition-colors bg-transparent border-none cursor-pointer"
@@ -56,7 +56,7 @@
     <!-- Page Header Section -->
     <div class="w-full border-b border-zinc-900 pb-4">
       <h1 class="text-xl font-semibold tracking-tight text-zinc-50">Docker Containers</h1>
-      <p class="text-xs text-zinc-400 mt-1">Manage and orchestrate virtualized node deployments</p>
+      <p class="text-xs text-zinc-400 mt-1">Manage docker containers</p>
     </div>
 
     <!-- Container Grid List -->

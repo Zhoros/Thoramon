@@ -173,10 +173,10 @@
       </div>
 
       <label class="flex flex-col gap-1.5 text-sm font-medium text-zinc-300">
-        <span>Private Key</span>
+        <span>Public key</span>
         <textarea 
           bind:value={privkey} 
-          placeholder="-----BEGIN OPENSSH PRIVATE KEY-----"
+          placeholder="-----BEGIN OPENSSH PUBLIC KEY-----"
           class="w-full h-24 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-zinc-100 text-xs font-mono resize-none focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 placeholder-zinc-700 transition-all"
         ></textarea>
       </label>

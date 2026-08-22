@@ -57,6 +57,14 @@
       >
         Docker Containers
       </button>
+
+      <button 
+        on:click={() => window.location.href = `/options.html?id=${id}`} 
+        class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 text-left border-none cursor-pointer
+               {currentPath.includes('docker') ? 'bg-zinc-900 text-zinc-50 font-semibold border border-zinc-800' : 'bg-transparent text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/50'}"
+      >
+        Options
+      </button>
     </nav>
 
     <!-- Small Footer Stamp -->
