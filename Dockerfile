@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --no-cache git nodejs npm
+RUN apk add --no-cache git nodejs npm curl
 
 WORKDIR /app
 
